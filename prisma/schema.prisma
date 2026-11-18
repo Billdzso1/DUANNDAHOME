@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+ 
+}
+
+model Department {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(150)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  users       User[]
+
+  @@map("departments")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  fullName     String        @map("full_name") @db.VarChar(150)
+  email        String        @unique @db.VarChar(150)
+  password     String        @db.VarChar(255)
+  phone        String?       @db.VarChar(20)
+  departmentId Int?          @map("department_id")
+  role         String?       @default("employee") @db.VarChar(30)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  department   Department?   @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  transactions Transaction[]
+
+  @@map("users")
+}
+
+model Category {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(150)
+  type         String        @db.VarChar(20)
+  description  String?       @db.Text
+  createdAt    DateTime      @default(now()) @map("created_at")
+  transactions Transaction[]
+
+  @@map("categories")
+}
+
+model Property {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(150)
+  address      String        @db.Text
+  propertyType String?       @map("property_type") @db.VarChar(50)
+  price        Decimal       @default(0) @db.Decimal(15, 2)
+  status       String?       @default("available") @db.VarChar(30)
+  description  String?       @db.Text
+  createdAt    DateTime      @default(now()) @map("created_at")
+  transactions Transaction[]
+
+  @@map("properties")
+}
+
+model Customer {
+  id           Int           @id @default(autoincrement())
+  fullName     String        @map("full_name") @db.VarChar(150)
+  phone        String?       @db.VarChar(20)
+  email        String?       @db.VarChar(150)
+  address      String?       @db.Text
+  createdAt    DateTime      @default(now()) @map("created_at")
+  transactions Transaction[]
+
+  @@map("customers")
+}
+
+model Transaction {
+  id              Int       @id @default(autoincrement())
+  userId          Int       @map("user_id")
+  categoryId      Int       @map("category_id")
+  propertyId      Int?      @map("property_id")
+  customerId      Int?      @map("customer_id")
+  amount          Decimal   @db.Decimal(15, 2)
+  description     String?   @db.Text
+  transactionDate DateTime  @default(dbgenerated("CURRENT_DATE")) @map("transaction_date") @db.Date
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Restrict)
+  category        Category  @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  property        Property? @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  customer        Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@map("transactions")
+}
