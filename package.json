@@ -1,12 +1,21 @@
 {
+<<<<<<< HEAD
   "name": "du-an-ndahome",
+=======
+  "name": "my-app",
+>>>>>>> 342a8d2c7db12a66d0b2a5c358e2850cf0355abe
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+<<<<<<< HEAD
     "lint": "eslint"
+=======
+    "lint": "eslint",
+    "postinstall": "prisma skills sync || exit 0"
+>>>>>>> 342a8d2c7db12a66d0b2a5c358e2850cf0355abe
   },
   "dependencies": {
     "next": "16.4.6",
@@ -14,12 +23,20 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
+=======
+    "@prisma/prisma7": "^7.10.1",
+>>>>>>> 342a8d2c7db12a66d0b2a5c358e2850cf0355abe
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+<<<<<<< HEAD
+=======
+    "prisma": "^8.0.0-rc.34",
+>>>>>>> 342a8d2c7db12a66d0b2a5c358e2850cf0355abe
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   }
