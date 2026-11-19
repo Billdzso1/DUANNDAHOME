@@ -36,10 +36,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
   return (
     <>
-<<<<<<< HEAD
       {/* Lớp phủ khi mở menu trên điện thoại */}
-=======
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       {open && (
         <div
           className="sidebar-overlay"
@@ -48,7 +45,6 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       )}
 
       <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
-<<<<<<< HEAD
 
         {/* LOGO VÀ TÊN CÔNG TY */}
         <div className="sidebar-brand">
@@ -65,10 +61,6 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               }}
             />
           </div>
-=======
-        <div className="sidebar-brand">
-          <div className="brand-logo">N</div>
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
           <div className="brand-text">
             <h2>NDAHOME</h2>
@@ -76,10 +68,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           </div>
 
           <button
-<<<<<<< HEAD
             type="button"
-=======
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             className="sidebar-close"
             onClick={onClose}
             aria-label="Đóng menu"
@@ -88,14 +77,10 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           </button>
         </div>
 
-<<<<<<< HEAD
         {/* MENU CHÍNH */}
         <div className="sidebar-label">
           MENU CHÍNH
         </div>
-=======
-        <div className="sidebar-label">MENU CHÍNH</div>
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
         <nav className="sidebar-nav">
           {menuItems.map((item) => {
@@ -116,17 +101,12 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           })}
         </nav>
 
-<<<<<<< HEAD
         {/* KHU VỰC HỆ THỐNG */}
         <div className="sidebar-bottom">
 
           <div className="sidebar-label">
             HỆ THỐNG
           </div>
-=======
-        <div className="sidebar-bottom">
-          <div className="sidebar-label">HỆ THỐNG</div>
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
           <Link
             href="/settings"
@@ -139,18 +119,12 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
             <span>Cài đặt</span>
           </Link>
 
-<<<<<<< HEAD
           {/* THÔNG TIN PHIÊN BẢN */}
-=======
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
           <div className="sidebar-version">
             <span>© 2026 NDAHOME</span>
             <span>Version 1.0.0</span>
           </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         </div>
       </aside>
     </>
