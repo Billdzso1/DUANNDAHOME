@@ -1,7 +1,11 @@
 
 "use client";
 
+<<<<<<< HEAD
 import { useEffect, useMemo, useState } from "react";
+=======
+import { useMemo, useState } from "react";
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 import {
   Plus,
   Search,
@@ -18,6 +22,7 @@ import {
   Filter,
   BriefcaseBusiness,
   Wallet,
+<<<<<<< HEAD
   Download,
   ArrowUpDown,
   Building2,
@@ -26,6 +31,8 @@ import {
   RotateCcw,
   UserRound,
   BadgeCheck,
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 } from "lucide-react";
 
 type EmployeeStatus = "Đang làm việc" | "Tạm nghỉ" | "Đã nghỉ việc";
@@ -43,6 +50,7 @@ type Employee = {
   status: EmployeeStatus;
 };
 
+<<<<<<< HEAD
 type EmployeeForm = {
   code: string;
   name: string;
@@ -57,6 +65,8 @@ type EmployeeForm = {
 
 const STORAGE_KEY = "ndahome_employees";
 
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 const initialEmployees: Employee[] = [
   {
     id: 1,
@@ -108,7 +118,11 @@ const initialEmployees: Employee[] = [
   },
 ];
 
+<<<<<<< HEAD
 const emptyForm: EmployeeForm = {
+=======
+const emptyForm = {
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
   code: "",
   name: "",
   phone: "",
@@ -117,7 +131,11 @@ const emptyForm: EmployeeForm = {
   position: "",
   startDate: "",
   salary: "",
+<<<<<<< HEAD
   status: "Đang làm việc",
+=======
+  status: "Đang làm việc" as EmployeeStatus,
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 };
 
 const formatMoney = (amount: number) =>
@@ -128,6 +146,7 @@ const formatDate = (date: string) => {
   return new Date(date + "T00:00:00").toLocaleDateString("vi-VN");
 };
 
+<<<<<<< HEAD
 const escapeCSV = (value: string | number) =>
   `"${String(value ?? "").replace(/"/g, '""')}"`;
 
@@ -139,10 +158,17 @@ export default function EmployeesPage() {
   const [statusFilter, setStatusFilter] = useState("Tất cả");
   const [departmentFilter, setDepartmentFilter] = useState("Tất cả");
   const [sortBy, setSortBy] = useState("newest");
+=======
+export default function EmployeesPage() {
+  const [employees, setEmployees] = useState(initialEmployees);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("Tất cả");
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
   const [modalOpen, setModalOpen] = useState(false);
   const [detailEmployee, setDetailEmployee] = useState<Employee | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
+<<<<<<< HEAD
   const [form, setForm] = useState<EmployeeForm>(emptyForm);
   const [error, setError] = useState("");
 
@@ -176,6 +202,11 @@ export default function EmployeesPage() {
     }
   }, [employees, loaded]);
 
+=======
+  const [form, setForm] = useState(emptyForm);
+  const [error, setError] = useState("");
+
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
   const activeCount = employees.filter(
     (employee) => employee.status === "Đang làm việc"
   ).length;
@@ -188,6 +219,7 @@ export default function EmployeesPage() {
     (employee) => employee.status === "Đã nghỉ việc"
   ).length;
 
+<<<<<<< HEAD
   const totalSalary = employees
     .filter((employee) => employee.status === "Đang làm việc")
     .reduce((sum, employee) => sum + employee.salary, 0);
@@ -208,6 +240,12 @@ export default function EmployeesPage() {
     const keyword = search.toLowerCase().trim();
 
     const result = employees.filter((employee) => {
+=======
+  const filteredEmployees = useMemo(() => {
+    const keyword = search.toLowerCase().trim();
+
+    return employees.filter((employee) => {
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       const matchesSearch = [
         employee.code,
         employee.name,
@@ -220,6 +258,7 @@ export default function EmployeesPage() {
       const matchesStatus =
         statusFilter === "Tất cả" || employee.status === statusFilter;
 
+<<<<<<< HEAD
       const matchesDepartment =
         departmentFilter === "Tất cả" ||
         employee.department === departmentFilter;
@@ -262,12 +301,28 @@ export default function EmployeesPage() {
 
     return `NV${String(nextNumber).padStart(3, "0")}`;
   }
+=======
+      return matchesSearch && matchesStatus;
+    });
+  }, [employees, search, statusFilter]);
+
+  const totalSalary = employees
+    .filter((employee) => employee.status === "Đang làm việc")
+    .reduce((sum, employee) => sum + employee.salary, 0);
+
+  const inputClass =
+    "w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-100";
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
   function openAddModal() {
     setEditingId(null);
     setForm({
       ...emptyForm,
+<<<<<<< HEAD
       code: generateEmployeeCode(),
+=======
+      code: `NV${String(Date.now()).slice(-5)}`,
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     });
     setError("");
     setModalOpen(true);
@@ -291,6 +346,7 @@ export default function EmployeesPage() {
   }
 
   function saveEmployee() {
+<<<<<<< HEAD
     const code = form.code.trim();
     const name = form.name.trim();
     const phone = form.phone.trim();
@@ -306,29 +362,58 @@ export default function EmployeesPage() {
     }
 
     if (!/^[0-9+\s.-]{9,16}$/.test(phone)) {
+=======
+    if (
+      !form.code.trim() ||
+      !form.name.trim() ||
+      !form.phone.trim() ||
+      !form.department.trim() ||
+      !form.position.trim()
+    ) {
+      setError("Vui lòng nhập đầy đủ mã, họ tên, số điện thoại, phòng ban và chức vụ.");
+      return;
+    }
+
+    if (!/^[0-9+\s]{9,15}$/.test(form.phone.trim())) {
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       setError("Số điện thoại không hợp lệ.");
       return;
     }
 
+<<<<<<< HEAD
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+=======
+    if (
+      form.email.trim() &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())
+    ) {
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       setError("Địa chỉ email không hợp lệ.");
       return;
     }
 
     const salary = Number(form.salary);
 
+<<<<<<< HEAD
     if (
       form.salary.trim() === "" ||
       !Number.isFinite(salary) ||
       salary < 0
     ) {
+=======
+    if (!form.salary || !Number.isFinite(salary) || salary < 0) {
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       setError("Vui lòng nhập mức lương hợp lệ.");
       return;
     }
 
     const duplicateCode = employees.some(
       (employee) =>
+<<<<<<< HEAD
         employee.code.toLowerCase() === code.toLowerCase() &&
+=======
+        employee.code.toLowerCase() === form.code.trim().toLowerCase() &&
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         employee.id !== editingId
     );
 
@@ -337,6 +422,7 @@ export default function EmployeesPage() {
       return;
     }
 
+<<<<<<< HEAD
     const duplicatePhone = employees.some(
       (employee) =>
         employee.phone.replace(/\s/g, "") === phone.replace(/\s/g, "") &&
@@ -372,6 +458,18 @@ export default function EmployeesPage() {
       startDate: form.startDate,
       salary,
       status: form.status,
+=======
+    const employeeData: Employee = {
+      id: editingId ?? Date.now(),
+      ...form,
+      code: form.code.trim(),
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      department: form.department.trim(),
+      position: form.position.trim(),
+      salary,
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     };
 
     if (editingId !== null) {
@@ -380,10 +478,13 @@ export default function EmployeesPage() {
           employee.id === editingId ? employeeData : employee
         )
       );
+<<<<<<< HEAD
 
       if (detailEmployee?.id === editingId) {
         setDetailEmployee(employeeData);
       }
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     } else {
       setEmployees((current) => [employeeData, ...current]);
     }
@@ -394,7 +495,11 @@ export default function EmployeesPage() {
 
   function deleteEmployee(employee: Employee) {
     const confirmed = window.confirm(
+<<<<<<< HEAD
       `Bạn có chắc muốn xóa nhân viên "${employee.name}" (${employee.code})?`
+=======
+      `Bạn có chắc muốn xóa nhân viên "${employee.name}"?`
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     );
 
     if (!confirmed) return;
@@ -402,6 +507,7 @@ export default function EmployeesPage() {
     setEmployees((current) =>
       current.filter((item) => item.id !== employee.id)
     );
+<<<<<<< HEAD
 
     if (detailEmployee?.id === employee.id) {
       setDetailEmployee(null);
@@ -464,10 +570,13 @@ export default function EmployeesPage() {
 
     link.click();
     URL.revokeObjectURL(url);
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
   }
 
   function statusClass(status: EmployeeStatus) {
     if (status === "Đang làm việc") {
+<<<<<<< HEAD
       return "border border-emerald-200 bg-emerald-50 text-emerald-700";
     }
 
@@ -582,18 +691,48 @@ export default function EmployeesPage() {
 
           <p className="mt-2 text-base text-slate-500">
             Quản lý hồ sơ, phòng ban, chức vụ và tình trạng làm việc của nhân sự.
+=======
+      return "bg-emerald-50 text-emerald-700";
+    }
+
+    if (status === "Tạm nghỉ") {
+      return "bg-orange-50 text-orange-700";
+    }
+
+    return "bg-slate-100 text-slate-600";
+  }
+
+  return (
+    <div className="min-h-screen space-y-6 bg-slate-50/70 p-4 md:p-7">
+      {/* Tiêu đề */}
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+          <div className="mb-1 text-sm text-slate-400">
+            Quản lý / Nhân viên
+          </div>
+          <h1 className="text-2xl font-bold text-slate-800">
+            Quản lý nhân viên
+          </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Theo dõi thông tin nhân sự và tình trạng làm việc.
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
           </p>
         </div>
 
         <button
           onClick={openAddModal}
+<<<<<<< HEAD
           className="employee-button flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-white shadow-md shadow-amber-200 hover:bg-amber-600"
+=======
+          className="flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         >
           <Plus size={19} />
           Thêm nhân viên
         </button>
       </div>
 
+<<<<<<< HEAD
       {/* Thẻ thống kê nhiều màu */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {statCards.map((item) => {
@@ -765,11 +904,90 @@ export default function EmployeesPage() {
             <Download size={17} />
             Xuất Excel / CSV
           </button>
+=======
+      {/* Thống kê */}
+      <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl bg-amber-50 p-3 text-amber-600 w-fit">
+            <Users size={22} />
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Tổng nhân viên</p>
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {employees.length}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl bg-emerald-50 p-3 text-emerald-600 w-fit">
+            <UserCheck size={22} />
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Đang làm việc</p>
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {activeCount}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl bg-orange-50 p-3 text-orange-600 w-fit">
+            <UserX size={22} />
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Tạm nghỉ</p>
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {pausedCount}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl bg-blue-50 p-3 text-blue-600 w-fit">
+            <Wallet size={22} />
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Tổng lương tháng</p>
+          <p className="mt-1 text-xl font-bold text-slate-800">
+            {formatMoney(totalSalary)}
+          </p>
+          <p className="mt-1 text-xs text-slate-400">
+            Nhân viên đang làm việc
+          </p>
+        </div>
+      </div>
+
+      {/* Tìm kiếm và lọc */}
+      <div className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm md:flex-row">
+        <div className="relative flex-1">
+          <Search
+            size={19}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          />
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Tìm mã nhân viên, họ tên, số điện thoại, phòng ban..."
+            className="w-full rounded-xl border border-slate-200 py-3 pl-10 pr-4 text-sm outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-100"
+          />
+        </div>
+
+        <div className="relative md:w-56">
+          <Filter
+            size={17}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          />
+          <select
+            value={statusFilter}
+            onChange={(event) => setStatusFilter(event.target.value)}
+            className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-3 text-sm outline-none focus:border-amber-400"
+          >
+            <option value="Tất cả">Tất cả trạng thái</option>
+            <option value="Đang làm việc">Đang làm việc</option>
+            <option value="Tạm nghỉ">Tạm nghỉ</option>
+            <option value="Đã nghỉ việc">Đã nghỉ việc</option>
+          </select>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         </div>
       </div>
 
       {/* Danh sách nhân viên */}
       <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
+<<<<<<< HEAD
         <div className="flex flex-col justify-between gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center">
           <div>
             <h2 className="flex items-center gap-2 text-lg font-bold text-slate-800">
@@ -830,11 +1048,50 @@ export default function EmployeesPage() {
                   <th className="px-5 py-4 font-bold">Lương cơ bản</th>
                   <th className="px-5 py-4 font-bold">Trạng thái</th>
                   <th className="px-5 py-4 text-right font-bold">Thao tác</th>
+=======
+        <div className="flex items-center justify-between border-b border-slate-100 p-5">
+          <div>
+            <h2 className="font-bold text-slate-800">Danh sách nhân viên</h2>
+            <p className="mt-1 text-xs text-slate-400">
+              Hiển thị {filteredEmployees.length} / {employees.length} nhân viên
+            </p>
+          </div>
+          <span className="hidden text-xs text-slate-400 sm:block">
+            {retiredCount} nhân viên đã nghỉ việc
+          </span>
+        </div>
+
+        {filteredEmployees.length === 0 ? (
+          <div className="py-14 text-center">
+            <Users className="mx-auto text-slate-300" size={40} />
+            <p className="mt-3 font-medium text-slate-600">
+              Không tìm thấy nhân viên
+            </p>
+            <p className="mt-1 text-sm text-slate-400">
+              Thử thay đổi từ khóa hoặc bộ lọc.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[1050px] text-left text-sm">
+              <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+                <tr>
+                  <th className="px-5 py-4 font-semibold">Nhân viên</th>
+                  <th className="px-5 py-4 font-semibold">Liên hệ</th>
+                  <th className="px-5 py-4 font-semibold">Phòng ban</th>
+                  <th className="px-5 py-4 font-semibold">Chức vụ</th>
+                  <th className="px-5 py-4 font-semibold">Lương cơ bản</th>
+                  <th className="px-5 py-4 font-semibold">Trạng thái</th>
+                  <th className="px-5 py-4 text-right font-semibold">
+                    Thao tác
+                  </th>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-slate-100">
                 {filteredEmployees.map((employee) => (
+<<<<<<< HEAD
                   <tr
                     key={employee.id}
                     className="transition-colors hover:bg-amber-50/40"
@@ -851,6 +1108,19 @@ export default function EmployeesPage() {
                           </p>
 
                           <p className="mt-1 text-xs font-semibold text-amber-600">
+=======
+                  <tr key={employee.id} className="transition hover:bg-slate-50/70">
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700">
+                          {employee.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-800">
+                            {employee.name}
+                          </p>
+                          <p className="mt-1 text-xs text-slate-400">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                             {employee.code}
                           </p>
                         </div>
@@ -859,24 +1129,37 @@ export default function EmployeesPage() {
 
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-2 text-slate-600">
+<<<<<<< HEAD
                         <Phone size={14} className="shrink-0 text-slate-400" />
                         {employee.phone}
                       </div>
 
                       <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
                         <Mail size={14} className="shrink-0" />
+=======
+                        <Phone size={14} className="text-slate-400" />
+                        {employee.phone}
+                      </div>
+                      <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
+                        <Mail size={14} />
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         {employee.email || "Chưa có email"}
                       </div>
                     </td>
 
                     <td className="px-5 py-4">
+<<<<<<< HEAD
                       <span className="inline-flex items-center gap-1.5 rounded-lg border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700">
                         <Building2 size={13} />
+=======
+                      <span className="rounded-lg bg-blue-50 px-2.5 py-1.5 text-xs font-medium text-blue-700">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         {employee.department}
                       </span>
                     </td>
 
                     <td className="px-5 py-4 text-slate-600">
+<<<<<<< HEAD
                       <div className="flex items-center gap-2">
                         <BriefcaseBusiness
                           size={15}
@@ -890,15 +1173,27 @@ export default function EmployeesPage() {
                       <span className="font-bold text-slate-700">
                         {formatMoney(employee.salary)}
                       </span>
+=======
+                      {employee.position}
+                    </td>
+
+                    <td className="px-5 py-4 font-semibold text-slate-700">
+                      {formatMoney(employee.salary)}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                     </td>
 
                     <td className="px-5 py-4">
                       <span
+<<<<<<< HEAD
                         className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${statusClass(employee.status)}`}
                       >
                         <span
                           className={`h-1.5 w-1.5 rounded-full ${statusDot(employee.status)}`}
                         />
+=======
+                        className={`rounded-full px-3 py-1.5 text-xs font-medium ${statusClass(employee.status)}`}
+                      >
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         {employee.status}
                       </span>
                     </td>
@@ -908,6 +1203,7 @@ export default function EmployeesPage() {
                         <button
                           onClick={() => setDetailEmployee(employee)}
                           title="Xem chi tiết"
+<<<<<<< HEAD
                           className="employee-button rounded-lg p-2 text-slate-400 hover:bg-blue-50 hover:text-blue-600"
                         >
                           <Eye size={17} />
@@ -925,6 +1221,23 @@ export default function EmployeesPage() {
                           onClick={() => deleteEmployee(employee)}
                           title="Xóa nhân viên"
                           className="employee-button rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-500"
+=======
+                          className="rounded-lg p-2 text-slate-400 hover:bg-blue-50 hover:text-blue-600"
+                        >
+                          <Eye size={17} />
+                        </button>
+                        <button
+                          onClick={() => openEditModal(employee)}
+                          title="Sửa nhân viên"
+                          className="rounded-lg p-2 text-slate-400 hover:bg-amber-50 hover:text-amber-600"
+                        >
+                          <Pencil size={17} />
+                        </button>
+                        <button
+                          onClick={() => deleteEmployee(employee)}
+                          title="Xóa nhân viên"
+                          className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         >
                           <Trash2 size={17} />
                         </button>
@@ -936,6 +1249,7 @@ export default function EmployeesPage() {
             </table>
           </div>
         )}
+<<<<<<< HEAD
 
         <div className="flex flex-col justify-between gap-2 border-t border-slate-100 bg-slate-50/60 px-5 py-3 text-xs text-slate-400 sm:flex-row">
           <span>
@@ -945,10 +1259,13 @@ export default function EmployeesPage() {
             </strong>
           </span>
         </div>
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       </div>
 
       {/* Modal thêm / sửa */}
       {modalOpen && (
+<<<<<<< HEAD
         <div
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/50 p-4 backdrop-blur-[2px]"
           onMouseDown={(event) => {
@@ -982,48 +1299,102 @@ export default function EmployeesPage() {
                 className="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
               >
                 <X size={21} />
+=======
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-900/40 p-4">
+          <div className="my-auto w-full max-w-2xl rounded-2xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-slate-100 p-5">
+              <div>
+                <h3 className="text-lg font-bold text-slate-800">
+                  {editingId !== null ? "Cập nhật nhân viên" : "Thêm nhân viên"}
+                </h3>
+                <p className="mt-1 text-xs text-slate-400">
+                  Nhập thông tin nhân viên bên dưới.
+                </p>
+              </div>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100"
+              >
+                <X size={20} />
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
               </button>
             </div>
 
             <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
               <div>
+<<<<<<< HEAD
                 <label className={labelClass}>Mã nhân viên *</label>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Mã nhân viên *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   value={form.code}
                   onChange={(event) =>
                     setForm({ ...form, code: event.target.value })
                   }
                   placeholder="NV001"
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
+=======
+                  className={inputClass}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className={labelClass}>Họ và tên *</label>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Họ và tên *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   value={form.name}
                   onChange={(event) =>
                     setForm({ ...form, name: event.target.value })
                   }
                   placeholder="Nhập họ và tên"
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
+=======
+                  className={inputClass}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className={labelClass}>Số điện thoại *</label>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Số điện thoại *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   value={form.phone}
                   onChange={(event) =>
                     setForm({ ...form, phone: event.target.value })
                   }
                   placeholder="Nhập số điện thoại"
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
+=======
+                  className={inputClass}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className={labelClass}>Email</label>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Email
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   type="email"
                   value={form.email}
@@ -1031,19 +1402,31 @@ export default function EmployeesPage() {
                     setForm({ ...form, email: event.target.value })
                   }
                   placeholder="example@gmail.com"
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
+=======
+                  className={inputClass}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className={labelClass}>Phòng ban *</label>
                 <input
                   list="employee-departments"
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Phòng ban *
+                </label>
+                <input
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   value={form.department}
                   onChange={(event) =>
                     setForm({ ...form, department: event.target.value })
                   }
                   placeholder="Ví dụ: Kế toán"
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
                 />
 
@@ -1056,17 +1439,32 @@ export default function EmployeesPage() {
 
               <div>
                 <label className={labelClass}>Chức vụ *</label>
+=======
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Chức vụ *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   value={form.position}
                   onChange={(event) =>
                     setForm({ ...form, position: event.target.value })
                   }
                   placeholder="Ví dụ: Kế toán viên"
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
+=======
+                  className={inputClass}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className={labelClass}>Ngày vào làm</label>
                 <div className="relative">
                   <CalendarDays
@@ -1108,6 +1506,41 @@ export default function EmployeesPage() {
 
               <div className="sm:col-span-2">
                 <label className={labelClass}>Trạng thái làm việc</label>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Ngày vào làm
+                </label>
+                <input
+                  type="date"
+                  value={form.startDate}
+                  onChange={(event) =>
+                    setForm({ ...form, startDate: event.target.value })
+                  }
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Lương cơ bản (VNĐ) *
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={form.salary}
+                  onChange={(event) =>
+                    setForm({ ...form, salary: event.target.value })
+                  }
+                  placeholder="9000000"
+                  className={inputClass}
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Trạng thái làm việc
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <select
                   value={form.status}
                   onChange={(event) =>
@@ -1116,7 +1549,11 @@ export default function EmployeesPage() {
                       status: event.target.value as EmployeeStatus,
                     })
                   }
+<<<<<<< HEAD
                   className={`${inputClass} employee-input`}
+=======
+                  className={inputClass}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 >
                   <option value="Đang làm việc">Đang làm việc</option>
                   <option value="Tạm nghỉ">Tạm nghỉ</option>
@@ -1125,6 +1562,7 @@ export default function EmployeesPage() {
               </div>
 
               {error && (
+<<<<<<< HEAD
                 <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600 sm:col-span-2">
                   {error}
                 </div>
@@ -1145,6 +1583,24 @@ export default function EmployeesPage() {
               >
                 <BadgeCheck size={17} />
                 {editingId !== null ? "Lưu thay đổi" : "Lưu nhân viên"}
+=======
+                <p className="text-sm text-red-500 sm:col-span-2">{error}</p>
+              )}
+            </div>
+
+            <div className="flex justify-end gap-3 border-t border-slate-100 p-5">
+              <button
+                onClick={() => setModalOpen(false)}
+                className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={saveEmployee}
+                className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-600"
+              >
+                Lưu nhân viên
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
               </button>
             </div>
           </div>
@@ -1153,6 +1609,7 @@ export default function EmployeesPage() {
 
       {/* Modal chi tiết */}
       {detailEmployee && (
+<<<<<<< HEAD
         <div
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/50 p-4 backdrop-blur-[2px]"
           onMouseDown={(event) => {
@@ -1289,6 +1746,65 @@ export default function EmployeesPage() {
                   Chỉnh sửa
                 </button>
               </div>
+=======
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-900/40 p-4">
+          <div className="my-auto w-full max-w-lg rounded-2xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-slate-100 p-5">
+              <h3 className="text-lg font-bold text-slate-800">
+                Chi tiết nhân viên
+              </h3>
+              <button
+                onClick={() => setDetailEmployee(null)}
+                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4 p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-xl font-bold text-amber-700">
+                  {detailEmployee.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800">
+                    {detailEmployee.name}
+                  </h4>
+                  <p className="text-sm text-slate-500">
+                    {detailEmployee.code}
+                  </p>
+                </div>
+              </div>
+
+              {[
+                ["Số điện thoại", detailEmployee.phone],
+                ["Email", detailEmployee.email || "Chưa cập nhật"],
+                ["Phòng ban", detailEmployee.department],
+                ["Chức vụ", detailEmployee.position],
+                ["Ngày vào làm", formatDate(detailEmployee.startDate)],
+                ["Lương cơ bản", formatMoney(detailEmployee.salary)],
+                ["Trạng thái", detailEmployee.status],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="flex flex-col justify-between gap-1 border-b border-slate-100 pb-3 sm:flex-row"
+                >
+                  <span className="text-sm text-slate-500">{label}</span>
+                  <span className="text-sm font-medium text-slate-800 sm:text-right">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-end border-t border-slate-100 p-5">
+              <button
+                onClick={() => setDetailEmployee(null)}
+                className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-600"
+              >
+                Đóng
+              </button>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             </div>
           </div>
         </div>

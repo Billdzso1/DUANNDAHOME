@@ -1,7 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+<<<<<<< HEAD
 node_modules/
+=======
+/node_modules
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 /.pnp
 .pnp.*
 .yarn/*
@@ -30,9 +34,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+<<<<<<< HEAD
 # env files
 .env*
 !.env.example
+=======
+# env files (can opt-in for committing if needed)
+.env*
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
 # vercel
 .vercel

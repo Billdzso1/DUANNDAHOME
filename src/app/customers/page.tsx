@@ -1,7 +1,11 @@
 
 "use client";
 
+<<<<<<< HEAD
 import { useEffect, useMemo, useState } from "react";
+=======
+import { useMemo, useState } from "react";
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 import {
   Plus,
   Search,
@@ -16,6 +20,7 @@ import {
   CalendarDays,
   Eye,
   Filter,
+<<<<<<< HEAD
   Download,
   MapPin,
   CreditCard,
@@ -25,6 +30,8 @@ import {
   RotateCcw,
   UserRound,
   FileSpreadsheet,
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 } from "lucide-react";
 
 type CustomerStatus = "Đang thuê" | "Đã trả phòng";
@@ -42,8 +49,11 @@ type Customer = {
   status: CustomerStatus;
 };
 
+<<<<<<< HEAD
 const STORAGE_KEY = "ndahome_customers";
 
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 const initialCustomers: Customer[] = [
   {
     id: 1,
@@ -108,6 +118,7 @@ const emptyForm = {
 };
 
 const formatDate = (date: string) => {
+<<<<<<< HEAD
   if (!date) return "Chưa cập nhật";
 
   const parsed = new Date(`${date}T00:00:00`);
@@ -126,6 +137,16 @@ export default function CustomersPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("Tất cả");
   const [sortOrder, setSortOrder] = useState("newest");
+=======
+  if (!date) return "—";
+  return new Date(date + "T00:00:00").toLocaleDateString("vi-VN");
+};
+
+export default function CustomersPage() {
+  const [customers, setCustomers] = useState(initialCustomers);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("Tất cả");
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
   const [modalOpen, setModalOpen] = useState(false);
   const [detailCustomer, setDetailCustomer] = useState<Customer | null>(null);
@@ -133,6 +154,7 @@ export default function CustomersPage() {
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState("");
 
+<<<<<<< HEAD
   // Đọc dữ liệu đã lưu trên trình duyệt
   useEffect(() => {
     try {
@@ -163,6 +185,8 @@ export default function CustomersPage() {
     }
   }, [customers, storageReady]);
 
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
   const activeCount = customers.filter(
     (customer) => customer.status === "Đang thuê"
   ).length;
@@ -172,14 +196,22 @@ export default function CustomersPage() {
   ).length;
 
   const filteredCustomers = useMemo(() => {
+<<<<<<< HEAD
     const keyword = search.trim().toLocaleLowerCase("vi");
 
     const result = customers.filter((customer) => {
       const searchable = [
+=======
+    const keyword = search.toLowerCase().trim();
+
+    return customers.filter((customer) => {
+      const matchesSearch = [
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         customer.name,
         customer.phone,
         customer.email,
         customer.identity,
+<<<<<<< HEAD
         customer.address,
         customer.property,
         customer.room,
@@ -189,11 +221,18 @@ export default function CustomersPage() {
         .toLocaleLowerCase("vi");
 
       const matchesSearch = searchable.includes(keyword);
+=======
+        customer.property,
+        customer.room,
+      ].some((value) => value.toLowerCase().includes(keyword));
+
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       const matchesStatus =
         statusFilter === "Tất cả" || customer.status === statusFilter;
 
       return matchesSearch && matchesStatus;
     });
+<<<<<<< HEAD
 
     return [...result].sort((a, b) => {
       if (sortOrder === "name") {
@@ -211,6 +250,9 @@ export default function CustomersPage() {
       return b.id - a.id;
     });
   }, [customers, search, statusFilter, sortOrder]);
+=======
+  }, [customers, search, statusFilter]);
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
   function openAddModal() {
     setEditingId(null);
@@ -237,6 +279,7 @@ export default function CustomersPage() {
   }
 
   function saveCustomer() {
+<<<<<<< HEAD
     const name = form.name.trim();
     const phone = form.phone.trim();
     const email = form.email.trim();
@@ -253,10 +296,32 @@ export default function CustomersPage() {
     }
 
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+=======
+    if (
+      !form.name.trim() ||
+      !form.phone.trim() ||
+      !form.property.trim() ||
+      !form.room.trim()
+    ) {
+      setError("Vui lòng nhập họ tên, số điện thoại, nhà và phòng.");
+      return;
+    }
+
+    if (!/^[0-9+\s]{9,15}$/.test(form.phone.trim())) {
+      setError("Số điện thoại không hợp lệ.");
+      return;
+    }
+
+    if (
+      form.email.trim() &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())
+    ) {
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       setError("Địa chỉ email không hợp lệ.");
       return;
     }
 
+<<<<<<< HEAD
     if (identity && !/^[0-9]{9,12}$/.test(identity)) {
       setError("Số CCCD/CMND cần có từ 9 đến 12 chữ số.");
       return;
@@ -282,16 +347,32 @@ export default function CustomersPage() {
 
     if (duplicateIdentity) {
       setError("Số CCCD/CMND này đã tồn tại trong danh sách.");
+=======
+    const duplicatePhone = customers.some(
+      (customer) =>
+        customer.phone === form.phone.trim() && customer.id !== editingId
+    );
+
+    if (duplicatePhone) {
+      setError("Số điện thoại này đã được sử dụng.");
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       return;
     }
 
     const customerData: Customer = {
       id: editingId ?? Date.now(),
       ...form,
+<<<<<<< HEAD
       name,
       phone,
       email,
       identity,
+=======
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      identity: form.identity.trim(),
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       address: form.address.trim(),
       property: form.property.trim(),
       room: form.room.trim(),
@@ -313,7 +394,11 @@ export default function CustomersPage() {
 
   function deleteCustomer(customer: Customer) {
     const confirmed = window.confirm(
+<<<<<<< HEAD
       `Bạn có chắc muốn xóa khách hàng "${customer.name}" khỏi danh sách?`
+=======
+      `Bạn có chắc muốn xóa khách hàng "${customer.name}"?`
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     );
 
     if (!confirmed) return;
@@ -321,6 +406,7 @@ export default function CustomersPage() {
     setCustomers((current) =>
       current.filter((item) => item.id !== customer.id)
     );
+<<<<<<< HEAD
 
     if (detailCustomer?.id === customer.id) {
       setDetailCustomer(null);
@@ -638,6 +724,146 @@ export default function CustomersPage() {
                   <th className="px-5 py-4 font-bold">Ngày bắt đầu</th>
                   <th className="px-5 py-4 font-bold">Trạng thái</th>
                   <th className="px-5 py-4 text-right font-bold">Thao tác</th>
+=======
+  }
+
+  const inputClass =
+    "w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-100";
+
+  return (
+    <div className="min-h-screen space-y-6 bg-slate-50/70 p-4 md:p-7">
+      {/* Tiêu đề */}
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+          <div className="mb-1 text-sm text-slate-400">
+            Quản lý / Khách hàng
+          </div>
+          <h1 className="text-2xl font-bold text-slate-800">
+            Quản lý khách hàng
+          </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Quản lý thông tin và lịch sử thuê phòng của khách hàng.
+          </p>
+        </div>
+
+        <button
+          onClick={openAddModal}
+          className="flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600"
+        >
+          <Plus size={19} />
+          Thêm khách hàng
+        </button>
+      </div>
+
+      {/* Thống kê */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="rounded-xl bg-amber-50 p-3 text-amber-600">
+              <Users size={22} />
+            </div>
+            <span className="text-xs text-slate-400">Tất cả</span>
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Tổng khách hàng</p>
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {customers.length}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="rounded-xl bg-emerald-50 p-3 text-emerald-600">
+              <UserCheck size={22} />
+            </div>
+            <span className="text-xs text-emerald-600">Đang hoạt động</span>
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Đang thuê phòng</p>
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {activeCount}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="rounded-xl bg-slate-100 p-3 text-slate-600">
+              <UserX size={22} />
+            </div>
+            <span className="text-xs text-slate-400">Đã kết thúc</span>
+          </div>
+          <p className="mt-4 text-sm text-slate-500">Đã trả phòng</p>
+          <p className="mt-1 text-2xl font-bold text-slate-800">
+            {returnedCount}
+          </p>
+        </div>
+      </div>
+
+      {/* Tìm kiếm và bộ lọc */}
+      <div className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm md:flex-row">
+        <div className="relative flex-1">
+          <Search
+            size={19}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          />
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Tìm tên, số điện thoại, email, nhà hoặc phòng..."
+            className="w-full rounded-xl border border-slate-200 py-3 pl-10 pr-4 text-sm outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-100"
+          />
+        </div>
+
+        <div className="relative md:w-56">
+          <Filter
+            size={17}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          />
+          <select
+            value={statusFilter}
+            onChange={(event) => setStatusFilter(event.target.value)}
+            className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-3 text-sm outline-none focus:border-amber-400"
+          >
+            <option value="Tất cả">Tất cả trạng thái</option>
+            <option value="Đang thuê">Đang thuê</option>
+            <option value="Đã trả phòng">Đã trả phòng</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Bảng khách hàng */}
+      <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
+        <div className="flex items-center justify-between border-b border-slate-100 p-5">
+          <div>
+            <h2 className="font-bold text-slate-800">Danh sách khách hàng</h2>
+            <p className="mt-1 text-xs text-slate-400">
+              Hiển thị {filteredCustomers.length} / {customers.length} khách hàng
+            </p>
+          </div>
+        </div>
+
+        {filteredCustomers.length === 0 ? (
+          <div className="py-14 text-center">
+            <Users className="mx-auto text-slate-300" size={40} />
+            <p className="mt-3 font-medium text-slate-600">
+              Không tìm thấy khách hàng
+            </p>
+            <p className="mt-1 text-sm text-slate-400">
+              Thử thay đổi từ khóa hoặc bộ lọc.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[950px] text-left text-sm">
+              <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+                <tr>
+                  <th className="px-5 py-4 font-semibold">Khách hàng</th>
+                  <th className="px-5 py-4 font-semibold">Liên hệ</th>
+                  <th className="px-5 py-4 font-semibold">Nhà / Phòng</th>
+                  <th className="px-5 py-4 font-semibold">Ngày bắt đầu</th>
+                  <th className="px-5 py-4 font-semibold">Trạng thái</th>
+                  <th className="px-5 py-4 text-right font-semibold">
+                    Thao tác
+                  </th>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </tr>
               </thead>
 
@@ -645,6 +871,7 @@ export default function CustomersPage() {
                 {filteredCustomers.map((customer) => (
                   <tr
                     key={customer.id}
+<<<<<<< HEAD
                     className="group transition-colors duration-200 hover:bg-amber-50/40"
                   >
                     <td className="px-5 py-4">
@@ -655,6 +882,17 @@ export default function CustomersPage() {
 
                         <div>
                           <p className="font-bold text-slate-800">
+=======
+                    className="transition hover:bg-slate-50/70"
+                  >
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700">
+                          {customer.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-800">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                             {customer.name}
                           </p>
                           <p className="mt-1 text-xs text-slate-400">
@@ -665,6 +903,7 @@ export default function CustomersPage() {
                     </td>
 
                     <td className="px-5 py-4">
+<<<<<<< HEAD
                       <div className="flex items-center gap-2 text-slate-700">
                         <Phone size={14} className="shrink-0 text-slate-400" />
                         <span>{customer.phone}</span>
@@ -673,10 +912,20 @@ export default function CustomersPage() {
                       <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
                         <Mail size={14} className="shrink-0" />
                         <span>{customer.email || "Chưa có email"}</span>
+=======
+                      <div className="flex items-center gap-2 text-slate-600">
+                        <Phone size={14} className="text-slate-400" />
+                        {customer.phone}
+                      </div>
+                      <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
+                        <Mail size={14} />
+                        {customer.email || "Chưa có email"}
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                       </div>
                     </td>
 
                     <td className="px-5 py-4">
+<<<<<<< HEAD
                       <div className="flex items-center gap-2 font-semibold text-slate-700">
                         <Building2 size={15} className="text-slate-400" />
                         {customer.property}
@@ -685,6 +934,14 @@ export default function CustomersPage() {
                         <BedDouble size={14} />
                         Phòng {customer.room}
                       </div>
+=======
+                      <p className="font-medium text-slate-700">
+                        {customer.property}
+                      </p>
+                      <p className="mt-1 text-xs text-slate-400">
+                        Phòng {customer.room}
+                      </p>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                     </td>
 
                     <td className="px-5 py-4 text-slate-600">
@@ -696,12 +953,17 @@ export default function CustomersPage() {
 
                     <td className="px-5 py-4">
                       <span
+<<<<<<< HEAD
                         className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${
+=======
+                        className={`rounded-full px-3 py-1.5 text-xs font-medium ${
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                           customer.status === "Đang thuê"
                             ? "bg-emerald-50 text-emerald-700"
                             : "bg-slate-100 text-slate-600"
                         }`}
                       >
+<<<<<<< HEAD
                         <span
                           className={`h-1.5 w-1.5 rounded-full ${
                             customer.status === "Đang thuê"
@@ -709,6 +971,8 @@ export default function CustomersPage() {
                               : "bg-slate-400"
                           }`}
                         />
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         {customer.status}
                       </span>
                     </td>
@@ -718,6 +982,7 @@ export default function CustomersPage() {
                         <button
                           onClick={() => setDetailCustomer(customer)}
                           title="Xem chi tiết"
+<<<<<<< HEAD
                           className="rounded-lg p-2 text-slate-400 transition hover:bg-blue-50 hover:text-blue-600"
                         >
                           <Eye size={17} />
@@ -735,6 +1000,23 @@ export default function CustomersPage() {
                           onClick={() => deleteCustomer(customer)}
                           title="Xóa khách hàng"
                           className="rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-500"
+=======
+                          className="rounded-lg p-2 text-slate-400 hover:bg-blue-50 hover:text-blue-600"
+                        >
+                          <Eye size={17} />
+                        </button>
+                        <button
+                          onClick={() => openEditModal(customer)}
+                          title="Sửa khách hàng"
+                          className="rounded-lg p-2 text-slate-400 hover:bg-amber-50 hover:text-amber-600"
+                        >
+                          <Pencil size={17} />
+                        </button>
+                        <button
+                          onClick={() => deleteCustomer(customer)}
+                          title="Xóa khách hàng"
+                          className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         >
                           <Trash2 size={17} />
                         </button>
@@ -750,6 +1032,7 @@ export default function CustomersPage() {
 
       {/* Modal thêm / sửa khách hàng */}
       {modalOpen && (
+<<<<<<< HEAD
         <div
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/50 p-4 backdrop-blur-sm"
           onMouseDown={(event) => {
@@ -788,6 +1071,31 @@ export default function CustomersPage() {
               <div>
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
                   Họ và tên <span className="text-red-500">*</span>
+=======
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-900/40 p-4">
+          <div className="my-auto w-full max-w-2xl rounded-2xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-slate-100 p-5">
+              <div>
+                <h3 className="text-lg font-bold text-slate-800">
+                  {editingId !== null ? "Cập nhật khách hàng" : "Thêm khách hàng"}
+                </h3>
+                <p className="mt-1 text-xs text-slate-400">
+                  Thông tin có dấu * là bắt buộc.
+                </p>
+              </div>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Họ và tên *
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </label>
                 <input
                   value={form.name}
@@ -800,8 +1108,13 @@ export default function CustomersPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
                   Số điện thoại <span className="text-red-500">*</span>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Số điện thoại *
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </label>
                 <input
                   value={form.phone}
@@ -814,7 +1127,11 @@ export default function CustomersPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   Email
                 </label>
                 <input
@@ -829,7 +1146,11 @@ export default function CustomersPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   CCCD / CMND
                 </label>
                 <input
@@ -838,13 +1159,21 @@ export default function CustomersPage() {
                     setForm({ ...form, identity: event.target.value })
                   }
                   placeholder="Nhập số giấy tờ"
+<<<<<<< HEAD
                   maxLength={12}
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   className={inputClass}
                 />
               </div>
 
+<<<<<<< HEAD
               <div className="md:col-span-2">
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
+=======
+              <div className="sm:col-span-2">
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   Địa chỉ thường trú
                 </label>
                 <input
@@ -852,14 +1181,23 @@ export default function CustomersPage() {
                   onChange={(event) =>
                     setForm({ ...form, address: event.target.value })
                   }
+<<<<<<< HEAD
                   placeholder="Nhập địa chỉ thường trú"
+=======
+                  placeholder="Nhập địa chỉ"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   className={inputClass}
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
                   Tên nhà <span className="text-red-500">*</span>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Tên nhà *
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </label>
                 <input
                   value={form.property}
@@ -872,8 +1210,13 @@ export default function CustomersPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
                   Phòng <span className="text-red-500">*</span>
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Phòng *
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </label>
                 <input
                   value={form.room}
@@ -886,7 +1229,11 @@ export default function CustomersPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   Ngày bắt đầu thuê
                 </label>
                 <input
@@ -900,8 +1247,13 @@ export default function CustomersPage() {
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
                   Trạng thái khách hàng
+=======
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Trạng thái
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </label>
                 <select
                   value={form.status}
@@ -919,6 +1271,7 @@ export default function CustomersPage() {
               </div>
 
               {error && (
+<<<<<<< HEAD
                 <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600 md:col-span-2">
                   {error}
                 </div>
@@ -939,6 +1292,24 @@ export default function CustomersPage() {
               >
                 <Plus size={17} />
                 {editingId !== null ? "Lưu thay đổi" : "Thêm khách hàng"}
+=======
+                <p className="text-sm text-red-500 sm:col-span-2">{error}</p>
+              )}
+            </div>
+
+            <div className="flex justify-end gap-3 border-t border-slate-100 p-5">
+              <button
+                onClick={() => setModalOpen(false)}
+                className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={saveCustomer}
+                className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-600"
+              >
+                Lưu khách hàng
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
               </button>
             </div>
           </div>
@@ -947,6 +1318,7 @@ export default function CustomersPage() {
 
       {/* Modal xem chi tiết */}
       {detailCustomer && (
+<<<<<<< HEAD
         <div
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/50 p-4 backdrop-blur-sm"
           onMouseDown={(event) => {
@@ -996,11 +1368,38 @@ export default function CustomersPage() {
                         : "bg-slate-100 text-slate-600"
                     }`}
                   >
+=======
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-900/40 p-4">
+          <div className="my-auto w-full max-w-lg rounded-2xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-slate-100 p-5">
+              <h3 className="text-lg font-bold text-slate-800">
+                Chi tiết khách hàng
+              </h3>
+              <button
+                onClick={() => setDetailCustomer(null)}
+                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4 p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-xl font-bold text-amber-700">
+                  {detailCustomer.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800">
+                    {detailCustomer.name}
+                  </h4>
+                  <span className="text-sm text-slate-500">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                     {detailCustomer.status}
                   </span>
                 </div>
               </div>
 
+<<<<<<< HEAD
               <div className="mb-4 rounded-xl border border-amber-100 bg-amber-50/60 p-4">
                 <div className="flex items-center gap-2 text-sm font-bold text-amber-800">
                   <Building2 size={17} />
@@ -1105,6 +1504,36 @@ export default function CustomersPage() {
                   Chỉnh sửa
                 </button>
               </div>
+=======
+              {[
+                ["Số điện thoại", detailCustomer.phone],
+                ["Email", detailCustomer.email || "Chưa cập nhật"],
+                ["CCCD / CMND", detailCustomer.identity || "Chưa cập nhật"],
+                ["Địa chỉ", detailCustomer.address || "Chưa cập nhật"],
+                ["Nhà", detailCustomer.property],
+                ["Phòng", detailCustomer.room],
+                ["Ngày bắt đầu thuê", formatDate(detailCustomer.startDate)],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="flex flex-col justify-between gap-1 border-b border-slate-100 pb-3 sm:flex-row"
+                >
+                  <span className="text-sm text-slate-500">{label}</span>
+                  <span className="text-sm font-medium text-slate-800 sm:text-right">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-end border-t border-slate-100 p-5">
+              <button
+                onClick={() => setDetailCustomer(null)}
+                className="rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-600"
+              >
+                Đóng
+              </button>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             </div>
           </div>
         </div>

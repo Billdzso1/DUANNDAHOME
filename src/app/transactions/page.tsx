@@ -1,7 +1,11 @@
 
 "use client";
 
+<<<<<<< HEAD
 import { useMemo, useState } from "react";
+=======
+import { useState } from "react";
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 import {
   Plus,
   Search,
@@ -13,12 +17,15 @@ import {
   Trash2,
   CalendarDays,
   X,
+<<<<<<< HEAD
   RotateCcw,
   ArrowDownUp,
   ReceiptText,
   Building2,
   Tag,
   CircleDollarSign,
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 } from "lucide-react";
 
 type Transaction = {
@@ -98,12 +105,15 @@ const formatDate = (date: string) => {
   return `${day}/${month}/${year}`;
 };
 
+<<<<<<< HEAD
 const inputClass =
   "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 outline-none transition-all duration-300 placeholder:text-gray-400 hover:border-yellow-400 focus:border-yellow-500 focus:ring-4 focus:ring-yellow-100";
 
 const cardClass =
   "group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-yellow-200 hover:shadow-xl";
 
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 export default function TransactionsPage() {
   const [transactions, setTransactions] =
     useState<Transaction[]>(initialTransactions);
@@ -111,15 +121,22 @@ export default function TransactionsPage() {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterMonth, setFilterMonth] = useState("");
+<<<<<<< HEAD
   const [filterCategory, setFilterCategory] = useState("all");
   const [filterProperty, setFilterProperty] = useState("all");
   const [sortOrder, setSortOrder] = useState("newest");
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const [form, setForm] = useState({
+<<<<<<< HEAD
     date: "",
+=======
+    date: getToday(),
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     description: "",
     category: "",
     property: "",
@@ -129,6 +146,7 @@ export default function TransactionsPage() {
 
   const [error, setError] = useState("");
 
+<<<<<<< HEAD
   const categories = useMemo(
     () => [...new Set(transactions.map((item) => item.category))].sort(),
     [transactions]
@@ -192,17 +210,43 @@ export default function TransactionsPage() {
     .reduce((sum, item) => sum + item.amount, 0);
 
   const totalExpense = filteredTransactions
+=======
+  const totalIncome = transactions
+    .filter((item) => item.type === "income")
+    .reduce((sum, item) => sum + item.amount, 0);
+
+  const totalExpense = transactions
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     .filter((item) => item.type === "expense")
     .reduce((sum, item) => sum + item.amount, 0);
 
   const profit = totalIncome - totalExpense;
 
+<<<<<<< HEAD
   const hasActiveFilters =
     search !== "" ||
     filterType !== "all" ||
     filterMonth !== "" ||
     filterCategory !== "all" ||
     filterProperty !== "all";
+=======
+  const filteredTransactions = transactions.filter((item) => {
+    const keyword = search.toLowerCase();
+
+    const matchesSearch =
+      item.description.toLowerCase().includes(keyword) ||
+      item.category.toLowerCase().includes(keyword) ||
+      item.property.toLowerCase().includes(keyword);
+
+    const matchesType =
+      filterType === "all" || item.type === filterType;
+
+    const matchesMonth =
+      !filterMonth || item.date.startsWith(filterMonth);
+
+    return matchesSearch && matchesType && matchesMonth;
+  });
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
 
   const openAddModal = () => {
     setEditingId(null);
@@ -277,7 +321,14 @@ export default function TransactionsPage() {
         )
       );
     } else {
+<<<<<<< HEAD
       setTransactions((current) => [transaction, ...current]);
+=======
+      setTransactions((current) => [
+        transaction,
+        ...current,
+      ]);
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     }
 
     closeModal();
@@ -299,6 +350,7 @@ export default function TransactionsPage() {
     setSearch("");
     setFilterType("all");
     setFilterMonth("");
+<<<<<<< HEAD
     setFilterCategory("all");
     setFilterProperty("all");
     setSortOrder("newest");
@@ -342,10 +394,36 @@ export default function TransactionsPage() {
             Thêm giao dịch
           </button>
         </div>
+=======
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* TIÊU ĐỀ */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800">
+            Quản lý thu chi
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Theo dõi và quản lý các khoản thu chi của NDAHOME.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={openAddModal}
+          className="flex items-center justify-center gap-2 rounded-xl bg-yellow-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-yellow-600"
+        >
+          <Plus size={18} />
+          Thêm giao dịch
+        </button>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
       </div>
 
       {/* THỐNG KÊ */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+<<<<<<< HEAD
         <div className={`${cardClass} hover:bg-gradient-to-br hover:from-white hover:to-green-50`}>
           <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-green-100/50 blur-2xl transition-transform duration-500 group-hover:scale-150" />
 
@@ -417,10 +495,62 @@ export default function TransactionsPage() {
           <div className="relative mt-4 h-1.5 overflow-hidden rounded-full bg-yellow-100">
             <div className="h-full w-full origin-left rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 transition-transform duration-700 group-hover:scale-x-105" />
           </div>
+=======
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Tổng khoản thu
+            </span>
+            <div className="rounded-xl bg-green-50 p-3 text-green-600">
+              <TrendingUp size={21} />
+            </div>
+          </div>
+          <h2 className="mt-4 text-2xl font-bold text-gray-800">
+            {formatMoney(totalIncome)}
+          </h2>
+          <p className="mt-2 text-xs text-gray-400">
+            Tổng tiền thu trong danh sách
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Tổng khoản chi
+            </span>
+            <div className="rounded-xl bg-red-50 p-3 text-red-500">
+              <TrendingDown size={21} />
+            </div>
+          </div>
+          <h2 className="mt-4 text-2xl font-bold text-gray-800">
+            {formatMoney(totalExpense)}
+          </h2>
+          <p className="mt-2 text-xs text-gray-400">
+            Tổng tiền chi trong danh sách
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Lợi nhuận
+            </span>
+            <div className="rounded-xl bg-yellow-50 p-3 text-yellow-600">
+              <Wallet size={21} />
+            </div>
+          </div>
+          <h2 className="mt-4 text-2xl font-bold text-gray-800">
+            {formatMoney(profit)}
+          </h2>
+          <p className="mt-2 text-xs text-gray-400">
+            Tổng thu trừ tổng chi
+          </p>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         </div>
       </div>
 
       {/* BỘ LỌC */}
+<<<<<<< HEAD
       <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-yellow-200 hover:shadow-lg">
         <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <div>
@@ -455,16 +585,31 @@ export default function TransactionsPage() {
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors"
             />
 
+=======
+      <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-4">
+          <div className="relative lg:col-span-2">
+            <Search
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+<<<<<<< HEAD
               placeholder="Tìm nội dung, danh mục, nhà hoặc phòng..."
               className={`${inputClass} pl-10`}
+=======
+              placeholder="Tìm kiếm nội dung, danh mục, nhà..."
+              className="w-full rounded-xl border border-gray-200 py-3 pl-10 pr-4 text-sm outline-none focus:border-yellow-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             />
           </div>
 
           <div className="relative">
+<<<<<<< HEAD
             <TrendingUp
               size={17}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -474,6 +619,16 @@ export default function TransactionsPage() {
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
               className={`${inputClass} appearance-none pl-10`}
+=======
+            <Filter
+              size={17}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-gray-600 outline-none focus:border-yellow-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             >
               <option value="all">Tất cả giao dịch</option>
               <option value="income">Khoản thu</option>
@@ -486,11 +641,15 @@ export default function TransactionsPage() {
               size={17}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             />
+<<<<<<< HEAD
 
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
             <input
               type="month"
               value={filterMonth}
               onChange={(e) => setFilterMonth(e.target.value)}
+<<<<<<< HEAD
               className={`${inputClass} pl-10`}
             />
           </div>
@@ -561,10 +720,30 @@ export default function TransactionsPage() {
               <option value="lowest">Số tiền thấp nhất</option>
             </select>
           </div>
+=======
+              className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-gray-600 outline-none focus:border-yellow-500"
+            />
+          </div>
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs text-gray-400">
+            Tìm thấy {filteredTransactions.length} giao dịch
+          </p>
+
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="text-xs font-medium text-yellow-700 hover:text-yellow-800"
+          >
+            Xóa bộ lọc
+          </button>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
         </div>
       </div>
 
       {/* DANH SÁCH GIAO DỊCH */}
+<<<<<<< HEAD
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
         <div className="flex flex-col gap-3 border-b border-gray-100 bg-gradient-to-r from-white to-yellow-50/60 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -596,6 +775,28 @@ export default function TransactionsPage() {
                 <th className="px-5 py-4 font-bold">Nhà / Phòng</th>
                 <th className="px-5 py-4 text-right font-bold">Số tiền</th>
                 <th className="px-5 py-4 text-center font-bold">Thao tác</th>
+=======
+      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <div className="border-b border-gray-100 p-5">
+          <h2 className="font-bold text-gray-800">
+            Danh sách giao dịch
+          </h2>
+          <p className="mt-1 text-xs text-gray-400">
+            Quản lý và cập nhật các giao dịch
+          </p>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[850px] text-left">
+            <thead className="bg-gray-50">
+              <tr className="text-xs text-gray-500">
+                <th className="px-5 py-4 font-semibold">Ngày</th>
+                <th className="px-5 py-4 font-semibold">Nội dung</th>
+                <th className="px-5 py-4 font-semibold">Danh mục</th>
+                <th className="px-5 py-4 font-semibold">Nhà / Phòng</th>
+                <th className="px-5 py-4 text-right font-semibold">Số tiền</th>
+                <th className="px-5 py-4 text-center font-semibold">Thao tác</th>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
               </tr>
             </thead>
 
@@ -604,13 +805,20 @@ export default function TransactionsPage() {
                 filteredTransactions.map((item) => (
                   <tr
                     key={item.id}
+<<<<<<< HEAD
                     className="group border-t border-gray-100 transition-all duration-300 hover:bg-yellow-50/70"
                   >
                     <td className="whitespace-nowrap px-5 py-4 text-sm text-gray-500 transition-colors group-hover:text-gray-800">
+=======
+                    className="border-t border-gray-100 transition hover:bg-gray-50"
+                  >
+                    <td className="whitespace-nowrap px-5 py-4 text-sm text-gray-500">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                       {formatDate(item.date)}
                     </td>
 
                     <td className="px-5 py-4">
+<<<<<<< HEAD
                       <div className="font-bold text-gray-800 transition-colors duration-200 group-hover:text-yellow-800">
                         {item.description}
                       </div>
@@ -637,6 +845,27 @@ export default function TransactionsPage() {
                     </td>
 
                     <td className="px-5 py-4 text-sm text-gray-600">
+=======
+                      <div className="font-medium text-gray-800">
+                        {item.description}
+                      </div>
+                      <span
+                        className={`mt-1 inline-block rounded-full px-2 py-1 text-[10px] font-medium ${
+                          item.type === "income"
+                            ? "bg-green-50 text-green-600"
+                            : "bg-red-50 text-red-500"
+                        }`}
+                      >
+                        {item.type === "income" ? "Khoản thu" : "Khoản chi"}
+                      </span>
+                    </td>
+
+                    <td className="px-5 py-4 text-sm text-gray-500">
+                      {item.category}
+                    </td>
+
+                    <td className="px-5 py-4 text-sm text-gray-500">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                       {item.property}
                     </td>
 
@@ -652,13 +881,21 @@ export default function TransactionsPage() {
                     </td>
 
                     <td className="px-5 py-4">
+<<<<<<< HEAD
                       <div className="flex justify-center gap-1.5">
+=======
+                      <div className="flex justify-center gap-2">
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         <button
                           type="button"
                           onClick={() => openEditModal(item)}
                           title="Sửa giao dịch"
+<<<<<<< HEAD
                           aria-label="Sửa giao dịch"
                           className="rounded-lg p-2 text-gray-400 transition-all duration-300 hover:-translate-y-1 hover:bg-yellow-100 hover:text-yellow-700 hover:shadow-md active:scale-90"
+=======
+                          className="rounded-lg p-2 text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         >
                           <Pencil size={16} />
                         </button>
@@ -667,8 +904,12 @@ export default function TransactionsPage() {
                           type="button"
                           onClick={() => handleDelete(item.id)}
                           title="Xóa giao dịch"
+<<<<<<< HEAD
                           aria-label="Xóa giao dịch"
                           className="rounded-lg p-2 text-gray-400 transition-all duration-300 hover:-translate-y-1 hover:bg-red-100 hover:text-red-600 hover:shadow-md active:scale-90"
+=======
+                          className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                         >
                           <Trash2 size={16} />
                         </button>
@@ -678,6 +919,7 @@ export default function TransactionsPage() {
                 ))
               ) : (
                 <tr>
+<<<<<<< HEAD
                   <td colSpan={6} className="px-5 py-16 text-center">
                     <div className="mx-auto flex max-w-sm flex-col items-center">
                       <div className="mb-4 rounded-2xl bg-yellow-50 p-4 text-yellow-600 transition-transform duration-300 hover:scale-110">
@@ -703,12 +945,19 @@ export default function TransactionsPage() {
                         </button>
                       )}
                     </div>
+=======
+                  <td colSpan={6} className="px-5 py-12 text-center">
+                    <p className="text-sm text-gray-500">
+                      Không tìm thấy giao dịch phù hợp.
+                    </p>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
+<<<<<<< HEAD
 
         <div className="border-t border-gray-100 bg-gray-50/70 px-5 py-3">
         </div>
@@ -718,10 +967,19 @@ export default function TransactionsPage() {
       {showModal && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto bg-black/50 p-4 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]"
+=======
+      </div>
+
+      {/* FORM THÊM / SỬA */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto bg-black/40 p-4"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) closeModal();
           }}
         >
+<<<<<<< HEAD
           <div
             className="my-auto w-full max-w-lg overflow-hidden rounded-2xl border border-white/50 bg-white shadow-2xl animate-[modalIn_0.25s_ease-out]"
             style={{ fontFamily: '"Times New Roman", Times, serif' }}
@@ -741,6 +999,16 @@ export default function TransactionsPage() {
 
                 <p className="mt-1 text-xs text-gray-400">
                   Nhập thông tin khoản thu hoặc chi của bạn.
+=======
+          <div className="my-auto w-full max-w-lg rounded-2xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-gray-100 p-5">
+              <div>
+                <h2 className="text-lg font-bold text-gray-800">
+                  {editingId !== null ? "Sửa giao dịch" : "Thêm giao dịch"}
+                </h2>
+                <p className="mt-1 text-xs text-gray-400">
+                  Nhập thông tin giao dịch của bạn.
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </p>
               </div>
 
@@ -748,16 +1016,27 @@ export default function TransactionsPage() {
                 type="button"
                 onClick={closeModal}
                 aria-label="Đóng"
+<<<<<<< HEAD
                 className="rounded-xl p-2 text-gray-400 transition-all duration-300 hover:rotate-90 hover:bg-red-50 hover:text-red-500"
+=======
+                className="rounded-lg p-2 text-gray-400 hover:bg-gray-100"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
               >
                 <X size={20} />
               </button>
             </div>
 
+<<<<<<< HEAD
             <div className="max-h-[70vh] space-y-4 overflow-y-auto p-5">
               <div>
                 <label className="mb-2 block text-sm font-bold text-gray-700">
                   Loại giao dịch *
+=======
+            <div className="space-y-4 p-5">
+              <div>
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Loại giao dịch
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 </label>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -766,6 +1045,7 @@ export default function TransactionsPage() {
                     onClick={() =>
                       setForm({ ...form, type: "income" })
                     }
+<<<<<<< HEAD
                     className={`flex items-center justify-center gap-2 rounded-xl border p-3 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
                       form.type === "income"
                         ? "border-green-500 bg-green-50 text-green-700 shadow-sm ring-2 ring-green-100"
@@ -773,6 +1053,15 @@ export default function TransactionsPage() {
                     }`}
                   >
                     <TrendingUp size={18} />
+=======
+                    className={`rounded-xl border p-3 text-sm font-semibold ${
+                      form.type === "income"
+                        ? "border-green-500 bg-green-50 text-green-600"
+                        : "border-gray-200 text-gray-500"
+                    }`}
+                  >
+                    <TrendingUp className="mr-2 inline" size={17} />
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                     Khoản thu
                   </button>
 
@@ -781,6 +1070,7 @@ export default function TransactionsPage() {
                     onClick={() =>
                       setForm({ ...form, type: "expense" })
                     }
+<<<<<<< HEAD
                     className={`flex items-center justify-center gap-2 rounded-xl border p-3 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
                       form.type === "expense"
                         ? "border-red-400 bg-red-50 text-red-600 shadow-sm ring-2 ring-red-100"
@@ -788,52 +1078,89 @@ export default function TransactionsPage() {
                     }`}
                   >
                     <TrendingDown size={18} />
+=======
+                    className={`rounded-xl border p-3 text-sm font-semibold ${
+                      form.type === "expense"
+                        ? "border-red-400 bg-red-50 text-red-500"
+                        : "border-gray-200 text-gray-500"
+                    }`}
+                  >
+                    <TrendingDown className="mr-2 inline" size={17} />
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                     Khoản chi
                   </button>
                 </div>
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-bold text-gray-700">
                   Ngày giao dịch *
                 </label>
 
+=======
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Ngày giao dịch *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   type="date"
                   value={form.date}
                   onChange={(e) =>
                     setForm({ ...form, date: e.target.value })
                   }
+<<<<<<< HEAD
                   className={inputClass}
+=======
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-yellow-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-bold text-gray-700">
                   Nội dung giao dịch *
                 </label>
 
+=======
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Nội dung *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   value={form.description}
                   onChange={(e) =>
                     setForm({ ...form, description: e.target.value })
                   }
                   placeholder="Ví dụ: Thu tiền phòng tháng 11"
+<<<<<<< HEAD
                   className={inputClass}
+=======
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-yellow-500"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 />
               </div>
 
               <div>
+<<<<<<< HEAD
                 <label className="mb-2 block text-sm font-bold text-gray-700">
                   Danh mục *
                 </label>
 
                 <input
                   list="transaction-categories"
+=======
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Danh mục *
+                </label>
+                <input
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   value={form.category}
                   onChange={(e) =>
                     setForm({ ...form, category: e.target.value })
                   }
+<<<<<<< HEAD
                   placeholder="Nhập hoặc chọn danh mục"
                   className={inputClass}
                 />
@@ -869,10 +1196,23 @@ export default function TransactionsPage() {
 
                 <input
                   list="transaction-properties"
+=======
+                  placeholder="Ví dụ: Tiền thuê phòng"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-yellow-500"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Nhà / Phòng
+                </label>
+                <input
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                   value={form.property}
                   onChange={(e) =>
                     setForm({ ...form, property: e.target.value })
                   }
+<<<<<<< HEAD
                   placeholder="Nhập hoặc chọn nhà / phòng"
                   className={inputClass}
                 />
@@ -889,6 +1229,17 @@ export default function TransactionsPage() {
                   Số tiền (VNĐ) *
                 </label>
 
+=======
+                  placeholder="Ví dụ: Nhà A - P101"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-yellow-500"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Số tiền (VNĐ) *
+                </label>
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 <input
                   type="number"
                   min="1"
@@ -897,6 +1248,7 @@ export default function TransactionsPage() {
                     setForm({ ...form, amount: e.target.value })
                   }
                   placeholder="Nhập số tiền"
+<<<<<<< HEAD
                   className={inputClass}
                 />
 
@@ -922,6 +1274,24 @@ export default function TransactionsPage() {
                 type="button"
                 onClick={closeModal}
                 className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-bold text-gray-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:bg-gray-100 hover:shadow-md active:scale-95"
+=======
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-yellow-500"
+                />
+              </div>
+
+              {error && (
+                <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
+                  {error}
+                </p>
+              )}
+            </div>
+
+            <div className="flex justify-end gap-3 border-t border-gray-100 p-5">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="rounded-xl border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50"
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
               >
                 Hủy
               </button>
@@ -929,15 +1299,21 @@ export default function TransactionsPage() {
               <button
                 type="button"
                 onClick={handleSave}
+<<<<<<< HEAD
                 className="flex items-center gap-2 rounded-xl bg-yellow-500 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-yellow-100 transition-all duration-300 hover:-translate-y-1 hover:bg-yellow-600 hover:shadow-lg hover:shadow-yellow-200 active:translate-y-0 active:scale-95"
               >
                 <Plus size={16} />
+=======
+                className="rounded-xl bg-yellow-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-yellow-600"
+              >
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
                 {editingId !== null ? "Lưu thay đổi" : "Lưu giao dịch"}
               </button>
             </div>
           </div>
         </div>
       )}
+<<<<<<< HEAD
 
       {/* KEYFRAMES CHO MODAL */}
       <style jsx>{`
@@ -961,6 +1337,8 @@ export default function TransactionsPage() {
           }
         }
       `}</style>
+=======
+>>>>>>> f915600fcc53a616529e88e1c3db206e41733251
     </div>
   );
 }
