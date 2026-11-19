@@ -1,0 +1,1090 @@
+@import "tailwindcss";
+
+/* ==============================
+1. BIẾN MÀU VÀ CẤU HÌNH CHUNG
+============================== */
+
+:root {
+  --primary: #d9a526;
+  --primary-dark: #bd8c16;
+  --primary-light: #fff6df;
+
+  --background: #f8f9fb;
+  --surface: #ffffff;
+
+  --text: #252525;
+  --text-secondary: #777777;
+
+  --border: #000000; /* Đã chuyển viền thành màu đen sắc nét */
+  --success: #299b59;
+  --danger: #df6654;
+
+  --sidebar-width: 0px; 
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ==============================
+2. BỐ CỤC CHUNG (MENU NGANG)
+============================== */
+
+.app-shell {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  min-height: calc(100vh - 64px);
+  margin-left: 0 !important;
+  padding: 24px 30px;
+  width: 100%;
+}
+
+.page-content {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ==============================
+3. HEADER
+============================== */
+
+.header,
+.topbar {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.search-box input {
+  width: 180px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.icon-button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: #555555;
+}
+
+.icon-button:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+/* ==============================
+4. TIÊU ĐỀ TRANG
+============================== */
+
+.page-heading {
+  margin-bottom: 24px;
+}
+
+.page-heading h1 {
+  margin: 0 0 7px;
+  font-size: 25px;
+  font-weight: 750;
+  color: var(--text);
+}
+
+.page-heading p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+/* ==============================
+5. DASHBOARD - THỐNG KÊ
+============================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.stat-card {
+  min-width: 0;
+  padding: 21px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.stat-card span {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: block;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.stat-icon.green {
+  background: #e9f8ef;
+  color: #299b59;
+}
+
+.stat-icon.red {
+  background: #fff0ed;
+  color: #df6654;
+}
+
+.stat-icon.gold {
+  background: #fff6df;
+  color: #c59422;
+}
+
+.stat-icon.blue {
+  background: #edf3ff;
+  color: #5284d5;
+}
+
+.stat-card h2,
+.stat-card h3 {
+  margin: 4px 0 0;
+  font-size: 22px;
+  font-weight: 750;
+  color: var(--text);
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 11px;
+  color: #999999;
+}
+
+/* ==============================
+6. DASHBOARD - KHUNG CHÀO MỪNG
+============================== */
+
+.dashboard-welcome {
+  margin-top: 24px;
+  padding: 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.welcome-label {
+  color: var(--primary-dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.dashboard-welcome h2 {
+  margin: 12px 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.dashboard-welcome p {
+  margin: 0;
+  color: #888888;
+  font-size: 13px;
+}
+
+.welcome-icon {
+  color: #d5a62e;
+  background: #fff7e5;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+/* ==============================
+7. BUTTON VÀ FORM
+============================== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 9px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #f5f5f5;
+  color: #444444;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #eaeaea;
+}
+
+.form-control,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  background: var(--surface);
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+}
+
+/* ==============================
+8. BẢNG DỮ LIỆU & TOOLBAR
+============================== */
+
+.content-card {
+  margin-top: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.table-toolbar {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table-toolbar .search-box {
+  flex: 1;
+  min-width: 240px;
+  max-width: 360px;
+}
+
+.table-toolbar .search-box input {
+  width: 100%;
+  font-size: 13px;
+}
+
+.filter-select {
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+}
+
+.filter-select:focus {
+  border-color: var(--primary);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th,
+td {
+  padding: 13px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #fffaf0;
+  color: #666666;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+td {
+  color: #444444;
+  font-size: 13px;
+}
+
+.table-main-text {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.table-sub-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-success {
+  background: #e9f8ef;
+  color: #299b59;
+}
+
+.status-warning {
+  background: #fff0ed;
+  color: #df6654;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: #ffffff;
+  color: #555555;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: var(--primary);
+}
+
+.action-btn.danger:hover {
+  background: #fff0ed;
+  color: #df6654;
+  border-color: #df6654;
+}
+
+.empty-state {
+  text-align: center !important;
+  padding: 36px !important;
+  color: var(--text-secondary);
+}
+
+.table-footer {
+  padding: 12px 20px;
+  background: #fafafa;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ==============================
+9. MODAL & FORM
+============================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.modal-header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  color: #888888;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.modal-close:hover {
+  background: #f2f2f2;
+  color: #222222;
+}
+
+.modal-content form {
+  padding: 20px 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #444444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  background: #ffffff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(217, 165, 38, 0.12);
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.detail-list {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detail-list > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border);
+  font-size: 13px;
+}
+
+.detail-list > div svg {
+  color: var(--primary-dark);
+  flex-shrink: 0;
+}
+
+.detail-list > div span {
+  color: var(--text-secondary);
+  min-width: 110px;
+}
+
+.detail-list > div strong {
+  color: var(--text);
+  margin-left: auto;
+  text-align: right;
+}
+
+/* ==============================
+10. CSS CHO TRANG CÀI ĐẶT (SETTINGS)
+============================== */
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.settings-sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.settings-sidebar-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #aaaaaa;
+  letter-spacing: 1px;
+  padding: 4px 12px 10px;
+}
+
+.settings-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #626262;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.settings-tab:hover {
+  background: #fff8e9;
+  color: var(--primary-dark);
+}
+
+.settings-tab.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.settings-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.settings-card-header {
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-card-header h2 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.settings-card-header p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.company-logo-area,
+.account-profile {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.company-logo,
+.account-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.account-avatar {
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 20px;
+}
+
+.company-logo-area strong,
+.account-profile strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.company-logo-area p,
+.account-profile p {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.account-profile p {
+  margin-bottom: 0;
+}
+
+.settings-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.settings-form-grid.one-column {
+  grid-template-columns: 1fr;
+  max-width: 480px;
+}
+
+.notification-settings {
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.notification-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.notification-row:first-child {
+  padding-top: 0;
+}
+
+.notification-row strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.notification-row p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #dddddd;
+  transition: 0.25s;
+  border-radius: 24px;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.25s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.switch input:checked + .switch-slider {
+  background-color: var(--primary);
+}
+
+.switch input:checked + .switch-slider:before {
+  transform: translateX(20px);
+}
+
+.security-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: var(--primary-light);
+  border: 1px solid rgba(217, 165, 38, 0.3);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: var(--primary-dark);
+}
+
+.security-notice strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.security-notice p {
+  margin: 0;
+  font-size: 12px;
+  color: #666666;
+}
+
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input input {
+  padding-right: 40px;
+}
+
+.password-input button {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #888888;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+}
+
+.password-input button:hover {
+  color: var(--text);
+}
+
+.security-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.settings-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.save-success {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--success);
+}
+
+/* ==============================
+11. RESPONSIVE THIẾT KẾ
+============================== */
+
+@media (max-width: 1100px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .main-content {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 900px) {
+  .settings-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .settings-sidebar-title {
+    display: none;
+  }
+
+  .settings-tab {
+    width: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .form-grid,
+  .settings-form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 500px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 17px;
+  }
+
+  .stat-card h2,
+  .stat-card h3 {
+    font-size: 20px;
+  }
+
+  .dashboard-welcome {
+    padding: 20px;
+  }
+
+  .welcome-icon {
+    display: none;
+  }
+
+  .user-profile span {
+    display: none;
+  }
+}
+
+/* ==============================
+12. LOGO SIDEBAR NDAHOME
+============================== */
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.brand-logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+
+
+
